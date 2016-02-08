@@ -52,14 +52,14 @@ if (jQuery) (function ($) {
 
         if (isOpen || trigger.hasClass('jq-dropdown-disabled')) return;
 
+        // Position it
+        position();
+
         // Show it
         trigger.addClass('jq-dropdown-open');
         jqDropdown
             .data('jq-dropdown-trigger', trigger)
             .show();
-
-        // Position it
-        position();
 
         // Trigger the show callback
         jqDropdown
