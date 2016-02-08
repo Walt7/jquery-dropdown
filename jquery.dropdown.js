@@ -52,17 +52,15 @@ if (jQuery) (function ($) {
 
         if (isOpen || trigger.hasClass('jq-dropdown-disabled')) return;
 
+		jqDropdown.data('jq-dropdown-trigger', trigger)
+        // Position it
+        position(jqDropdown);
+		
         // Show it
         trigger.addClass('jq-dropdown-open');
-        jqDropdown
-            .data('jq-dropdown-trigger', trigger)
-            .show();
-
-        // Position it
-        position();
 
         // Trigger the show callback
-        jqDropdown
+        jqDropdown.show()
             .trigger('show', {
                 jqDropdown: jqDropdown,
                 trigger: trigger
@@ -101,10 +99,9 @@ if (jQuery) (function ($) {
 
     }
 
-    function position() {
+    function position(jqDropdown) {
 
-        var jqDropdown = $('.jq-dropdown:visible').eq(0),
-            trigger = jqDropdown.data('jq-dropdown-trigger'),
+        var trigger = jqDropdown.data('jq-dropdown-trigger'),
             hOffset = trigger ? parseInt(trigger.attr('data-horizontal-offset') || 0, 10) : null,
             vOffset = trigger ? parseInt(trigger.attr('data-vertical-offset') || 0, 10) : null;
 
@@ -130,6 +127,6 @@ if (jQuery) (function ($) {
 
     $(document).on('click.jq-dropdown', '[data-jq-dropdown]', show);
     $(document).on('click.jq-dropdown', hide);
-    $(window).on('resize', position);
+    $(window).on('resize', function(){ position($('.jq-dropdown:visible').eq(0))} );
 
 })(jQuery);
